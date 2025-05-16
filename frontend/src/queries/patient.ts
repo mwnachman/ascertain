@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { apiRequest } from './api';
 import { components } from './schema';
+import { filterByName } from './helpers';
 
 // Export schema types for use in components
 export type Patient = components['schemas']['Patient'];
@@ -23,17 +24,13 @@ export const patientKeys = {
  * Fetch patients from the API
  */
 export const fetchPatients = async (params?: { name?: string }): Promise<PatientListResponse> => {
-  const searchParams = new URLSearchParams();
+  // The API seems to return an array of Patient objects
+  const patients = await apiRequest<Patient[]>(PATIENTS_ENDPOINT);
 
   if (params?.name) {
-    searchParams.append('name', params.name);
+    return { patients: filterByName(params?.name, patients) };
   }
 
-  const queryString = searchParams.toString();
-  const url = `${PATIENTS_ENDPOINT}${queryString ? `?${queryString}` : ''}`;
-
-  // The API seems to return an array of Patient objects, so we wrap it in an object
-  const patients = await apiRequest<Patient[]>(url);
   return { patients };
 };
 
@@ -49,7 +46,7 @@ export const fetchPatientDetails = async (patientId: string): Promise<Patient> =
  */
 export const usePatients = (params?: { name?: string }) => {
   return useQuery({
-    queryKey: patientKeys.search(params?.name),
+    queryKey: patientKeys.search(params?.name?.toLowerCase().trim()),
     queryFn: () => fetchPatients(params),
   });
 };

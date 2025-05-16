@@ -3,6 +3,12 @@ import PatientList from '@components/patients/PatientList';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import './App.css';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from "react-router-dom";
+import PatientDetail from '@/components/patients/PatientDetail';
 
 // Create a client
 const queryClient = new QueryClient({
@@ -16,15 +22,17 @@ const queryClient = new QueryClient({
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <Layout>
-        <div className="space-y-6">
-          <h1 className="text-2xl font-bold text-gray-900">Patient Management</h1>
-          <PatientList />
-        </div>
-      </Layout>
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
+    <Router>
+      <QueryClientProvider client={queryClient}>
+        <Routes>
+          <Route path="/" Component={Layout}>
+            <Route index Component={PatientList} />
+            <Route path="/:patientId" Component={PatientDetail} />
+          </Route>
+        </Routes>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
+    </Router>
   );
 }
 
