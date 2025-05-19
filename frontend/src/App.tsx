@@ -1,5 +1,5 @@
 import Layout from '@components/Layout';
-import PatientList from '@components/patients/PatientList';
+import PatientManagement from '@components/patients/PatientManagement';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import './App.css';
@@ -26,7 +26,7 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <Routes>
           <Route path="/" Component={Layout}>
-            <Route index Component={PatientList} />
+            <Route index Component={PatientManagement} />
             <Route path="/:patientId" Component={PatientDetail} />
           </Route>
         </Routes>

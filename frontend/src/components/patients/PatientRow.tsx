@@ -1,21 +1,14 @@
 import { formatDate } from '@/components/patients/helpers';
 import { PatientActions } from '@/components/patients/PatientActions';
 import type { Patient } from '@queries/patient';
-import { useNavigate } from 'react-router-dom';
 
 interface PatientRowProps {
   patient: Patient;
 }
 
 const PatientRow = ({ patient }: PatientRowProps) => {
-  const navigate = useNavigate();
-
-  const handleClick = () => {
-    navigate(`/${patient.id}`);
-  };
-
   return (
-    <tr className="hover:bg-gray-50 cursor-pointer" onClick={handleClick}>
+    <tr className="hover:bg-gray-50">
       <td className="px-4 py-3 whitespace-nowrap">
         <div className="text-sm font-medium text-gray-900">{patient.full_name}</div>
       </td>

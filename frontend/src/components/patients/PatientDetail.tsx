@@ -1,12 +1,22 @@
-import { formatDate } from '@/components/patients/helpers';
-import { PatientActions } from '@/components/patients/PatientActions';
-import { usePatients } from '@/queries/patient';
 import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
+import { formatDate } from '@/components/patients/helpers';
+import { DeleteButton, EditButton } from '@/components/patients/PatientActions';
+import useScrollToTop from '@components/hooks/useScrollToTop';
+import { usePatients } from '@/queries/patient';
 
 const PatientDetail = () => {
+  useScrollToTop();
+  const navigate = useNavigate();
+
   const { patientId } = useParams();
   const { data } = usePatients();
   const patient = data?.patients.find((patient) => patient.id === patientId)
+
+  const returnToList = () => {
+    navigate("/");
+  }
 
   if (!patient) {
     return (
@@ -20,7 +30,8 @@ const PatientDetail = () => {
       <p>DOB: {formatDate(patient.birth_date)}</p>
       <p>ID: {patient.id}</p>
       <p>Resource Type: {patient.resourceType}</p>
-      <PatientActions patient={patient}/>
+      <div><EditButton patient={patient} /><DeleteButton patient={patient} /></div>
+      <button onClick={returnToList}>Back to Patient List</button>
     </div>
   );
 };
