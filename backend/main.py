@@ -2,7 +2,7 @@ import os
 from datetime import date
 
 import uvicorn
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from utils.fhir_utils import (
@@ -59,13 +59,13 @@ async def root():
 
 
 @app.get("/patients/", response_model=list[Patient], tags=["Patients"])
-async def list_patients() -> list[Patient]:
+async def list_patients(skip: int = Query(0, ge=0), limit: int = Query(10, ge=1, le=100)) -> list[Patient]:
     """
     Get all patients.
     """
 
     mapped_patients = []
-    for p in patients:
+    for p in patients[skip:skip + limit]:
         # Extract full name from name array (family name + given names)
         full_name = ""
         if p.get("name") and len(p["name"]) > 0:
