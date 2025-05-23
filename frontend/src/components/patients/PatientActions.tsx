@@ -1,20 +1,20 @@
 import { useNavigate } from 'react-router-dom';
 import type { Patient } from '@/queries/patient';
 
-export const EditButton = ({patient}: {patient: Patient}) => {
+export const EditButton = ({patient}: {patient?: Patient}) => {
   return (
     <button
       className="text-blue-600 hover:text-blue-900 mr-2"
-      aria-label={`Edit ${patient.full_name}`}
+      aria-label={`Edit ${patient?.full_name}`}
     >
       Edit
     </button>
   )
 };
 
-export const DeleteButton = ({patient}: {patient: Patient}) => {
+export const DeleteButton = ({patient}: {patient?: Patient}) => {
   return (
-    <button className="text-red-600 hover:text-red-900" aria-label={`Delete ${patient.full_name}`}>
+    <button className="text-red-600 hover:text-red-900" aria-label={`Delete ${patient?.full_name}`}>
       Delete
     </button>
   )

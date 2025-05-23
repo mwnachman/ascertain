@@ -9,7 +9,7 @@ const PatientManagement = () => {
   return (
     <div className="w-full overflow-hidden">
       <div className="mb-4">
-        <h2 className="text-xl font-semibold text-gray-800 mb-4">Patient List</h2>
+        <h2 className="text-xl font-semibold text-gray-800 dark:text-white mb-4">Patient List</h2>
         <PatientSearch setSearchQuery={setSearchQuery} />
       </div>
 

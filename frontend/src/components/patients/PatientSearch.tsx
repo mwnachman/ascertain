@@ -25,7 +25,7 @@ const PatientSearch = ({ setSearchQuery }: PatientSearchProps) => {
         value={searchName}
         onChange={(e) => setSearchName(e.target.value)}
         onKeyDown={handleKeyDown}
-        className="px-3 py-1.5 border border-gray-300 rounded-md focus:outline-none hover:border-gray-500 focus:border-gray-700 flex-grow text-sm"
+        className="px-3 py-1.5 dark:text-white border border-gray-300 dark:border-white rounded-md focus:outline-none hover:border-gray-500 dark:hover:border-gray-300 flex-grow text-sm"
         aria-label="Search patients"
       />
       <button

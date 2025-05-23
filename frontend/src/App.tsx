@@ -2,7 +2,6 @@ import Layout from '@components/Layout';
 import PatientManagement from '@components/patients/PatientManagement';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import './App.css';
 import {
   BrowserRouter as Router,
   Routes,
